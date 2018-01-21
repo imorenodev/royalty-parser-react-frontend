@@ -1,4 +1,4 @@
-import { FETCH_ASINS } from '../actions';
+import { FETCH_BOOKS } from '../actions';
 
 function mapKeys(data) {
   return data.reduce( (acc, val) => Object.assign(acc, {[val['id']] : val}), {});
@@ -6,7 +6,7 @@ function mapKeys(data) {
 
 export default function(state = {}, action) {
   switch (action.type) {
-    case FETCH_ASINS :
+    case FETCH_BOOKS :
         return mapKeys(action.payload.data);
 
     /*

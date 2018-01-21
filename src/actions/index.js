@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 export const FETCH_AUTHORS = 'FETCH_AUTHORS';
-export const FETCH_ASINS = 'FETCH_ASINS';
+export const FETCH_BOOKS = 'FETCH_BOOKS';
 export const CREATE_AUTHOR = 'CREATE_AUTHOR';
 
-const ROOT_URL = 'http://localhost:8888/api/publishers/3';
+const ROOT_URL = 'http://localhost:8888/api/publishers/1';
 
 export function fetchAuthors() {
   const request = axios.get(`${ROOT_URL}/`);
@@ -15,11 +15,11 @@ export function fetchAuthors() {
   };
 }
 
-export function fetchAsins() {
-  const request = axios.get(`${ROOT_URL}/authors/3/asins/`);
+export function fetchBooks() {
+  const request = axios.get(`${ROOT_URL}/authors/1/books/`);
 
   return {
-    type: FETCH_ASINS,
+    type: FETCH_BOOKS,
     payload: request
   };
 }

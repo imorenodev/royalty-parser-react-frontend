@@ -16,7 +16,7 @@ class AuthorsIndex extends Component {
     return Object.keys(authors).map( (index) => {
         return (
           <li className="list-group-item" key={ authors[index].id }>
-            <Link to={ `/asins` }>
+            <Link to={ `/books` }>
             { authors[index].firstName }
             </Link>
           </li>

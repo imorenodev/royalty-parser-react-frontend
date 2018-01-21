@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchAsins } from '../actions';
+import { fetchBooks } from '../actions';
 
-class AsinsIndex extends Component {
+class BooksIndex extends Component {
   componentDidMount() {
-    if (this.props.asins) {
-      this.props.fetchAsins();
+    if (this.props.books) {
+      this.props.fetchBooks();
     }
   }
 
@@ -14,26 +14,26 @@ class AsinsIndex extends Component {
 
   }
 
-  renderAsins() {
-    const asins = this.props.asins;
-    console.log(Object.keys(asins));
-    console.log(asins);
+  renderBooks() {
+    const books = this.props.books;
+    console.log(Object.keys(books));
+    console.log(books);
 
-    return Object.keys(asins).map( (index) => {
+    return Object.keys(books).map( (index) => {
         return (
           <tr>
             <td>
-              { asins[index].bookTitle }
+              { books[index].bookTitle }
             </td>
             <td>
-              { asins[index].bookAsin }
+              { books[index].bookAsin }
             </td>
             <td>
               <button
                 className="btn btn-danger pull-xs-right"
                 onClick={ this.onDeleteClick.bind(this) }
                 >
-                Delete ASIN
+                Delete Book
               </button>
             </td>
           </tr>
@@ -42,7 +42,7 @@ class AsinsIndex extends Component {
   }
 
   render() {
-    if (!this.props.asins) {
+    if (!this.props.books) {
       return (
         <div>
           Loading...
@@ -51,10 +51,10 @@ class AsinsIndex extends Component {
     }
     return (
       <div>
-        <h3>Asins List</h3>
+        <h3>Books List</h3>
         <div className="text-xs-right">
-          <Link className="btn btn-primary" to="/asins/new">
-            Add an Asin
+          <Link className="btn btn-primary" to="/books/new">
+            Add a Book
           </Link>
         </div>
         <table className="table table-hover">
@@ -66,7 +66,7 @@ class AsinsIndex extends Component {
             </tr>
           </thead>
           <tbody>
-            { this.renderAsins() }
+            { this.renderBooks() }
           </tbody>
         </table>
         <div className="text-xs-left">
@@ -81,7 +81,7 @@ class AsinsIndex extends Component {
 }
 
 function mapStateToProps(state) {
-  return { asins: state.asins };
+  return { books: state.books };
 }
 
-export default connect(mapStateToProps, { fetchAsins })(AsinsIndex);
+export default connect(mapStateToProps, { fetchBooks })(BooksIndex);
