@@ -9,6 +9,7 @@ import promise from 'redux-promise';
 import reducers from './reducers';
 import AuthorsIndex from './components/authors_index';
 import BooksIndex from './components/books_index';
+import BooksNew from './components/books_new';
 import AuthorsNew from './components/authors_new';
 import App from './components/app';
 import PublisherDashboard from './components/publisher_dashboard';
@@ -24,6 +25,7 @@ ReactDOM.render(
           <Route path="/authors/new" component={ AuthorsNew } />
           <Route path="/authors" component={ AuthorsIndex } />
           <Route path="/publishers/:id" component={ PublisherDashboard } />
+          <Route path="/books/new" component={ BooksNew } />
           <Route path="/books" component={ BooksIndex } />
           <Route path="/" component={ App } />
         </Switch>
