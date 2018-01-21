@@ -1,33 +1,43 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchAuthors } from '../actions';
+import { fetchAuthors, deleteAuthor } from '../actions';
 
 class AuthorsIndex extends Component {
+  constructor(props) {
+    super();
+
+    this.onDeleteClick = this.onDeleteClick.bind(this);
+  }
+
   componentDidMount() {
     if (this.props.authors) {
       this.props.fetchAuthors();
     }
   }
 
-  onDeleteClick() {
-
+  onDeleteClick(e) {
+    const { id } = e.target;
+    console.log(this.props.history);
+    this.props.deleteAuthor(id, () => {
+      this.props.history.push("/authors");
+    });
   }
 
   renderAuthors() {
     const authors = this.props.authors;
 
-    return Object.keys(authors).map( (index) => {
+    return Object.keys(authors).map( (id) => {
         return (
-          <tr>
+          <tr key={ id }>
             <td>
-              { authors[index].firstName }
+              { authors[id].firstName }
             </td>
             <td>
-              { authors[index].lastName }
+              { authors[id].lastName }
             </td>
             <td>
-              { authors[index].email }
+              { authors[id].email }
             </td>
             <td>
               <Link className="btn btn-primary" to={ `/books` }>
@@ -36,8 +46,9 @@ class AuthorsIndex extends Component {
             </td>
             <td>
               <button
+                id={ id }
                 className="btn btn-danger pull-xs-right"
-                onClick={ this.onDeleteClick.bind(this) }
+                onClick={ this.onDeleteClick }
                 >
                 Delete Author
               </button>
@@ -95,4 +106,4 @@ function mapStateToProps(state) {
   return { authors: state.authors };
 }
 
-export default connect(mapStateToProps, { fetchAuthors })(AuthorsIndex);
+export default connect(mapStateToProps, { fetchAuthors, deleteAuthor })(AuthorsIndex);

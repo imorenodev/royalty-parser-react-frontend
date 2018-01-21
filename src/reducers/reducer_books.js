@@ -1,4 +1,4 @@
-import { FETCH_BOOKS } from '../actions';
+import { FETCH_BOOKS, DELETE_BOOK } from '../actions';
 
 function mapKeys(data) {
   return data.reduce( (acc, val) => Object.assign(acc, {[val['id']] : val}), {});
@@ -16,10 +16,11 @@ export default function(state = {}, action) {
       //newState[post.id] = post;
       //return newState;
       return { ...state, [action.payload.data.id]: action.payload.data};
+      */
 
-    case DELETE_POST :
+    case DELETE_BOOK :
       return _.omit(state, action.payload);
-    */
+
     default:
       return state;
   }

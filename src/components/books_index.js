@@ -1,23 +1,32 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchBooks } from '../actions';
+import { fetchBooks, deleteBook } from '../actions';
 
 class BooksIndex extends Component {
+  constructor(props) {
+    super();
+
+    this.onDeleteClick = this.onDeleteClick.bind(this);
+  }
+
   componentDidMount() {
     if (this.props.books) {
       this.props.fetchBooks();
     }
   }
 
-  onDeleteClick() {
-
+  onDeleteClick(e) {
+    const { id } = e.target;
+    console.log(this.props.history);
+    this.props.deleteBook(id, () => {
+      this.props.history.push("/books");
+    });
   }
 
   renderBooks() {
     const books = this.props.books;
     console.log(Object.keys(books));
-    console.log(books);
 
     return Object.keys(books).map( (index) => {
         return (
@@ -30,8 +39,9 @@ class BooksIndex extends Component {
             </td>
             <td>
               <button
+                id={ index }
                 className="btn btn-danger pull-xs-right"
-                onClick={ this.onDeleteClick.bind(this) }
+                onClick={ this.onDeleteClick }
                 >
                 Delete Book
               </button>
@@ -84,4 +94,4 @@ function mapStateToProps(state) {
   return { books: state.books };
 }
 
-export default connect(mapStateToProps, { fetchBooks })(BooksIndex);
+export default connect(mapStateToProps, { fetchBooks, deleteBook })(BooksIndex);
