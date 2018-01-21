@@ -10,16 +10,39 @@ class AuthorsIndex extends Component {
     }
   }
 
+  onDeleteClick() {
+
+  }
+
   renderAuthors() {
     const authors = this.props.authors;
 
     return Object.keys(authors).map( (index) => {
         return (
-          <li className="list-group-item" key={ authors[index].id }>
-            <Link to={ `/books` }>
-            { authors[index].firstName }
-            </Link>
-          </li>
+          <tr>
+            <td>
+              { authors[index].firstName }
+            </td>
+            <td>
+              { authors[index].lastName }
+            </td>
+            <td>
+              { authors[index].email }
+            </td>
+            <td>
+              <Link className="btn btn-primary" to={ `/books` }>
+                View Books
+              </Link>
+            </td>
+            <td>
+              <button
+                className="btn btn-danger pull-xs-right"
+                onClick={ this.onDeleteClick.bind(this) }
+                >
+                Delete Author
+              </button>
+            </td>
+          </tr>
         );
     });
   }
@@ -35,14 +58,28 @@ class AuthorsIndex extends Component {
     return (
       <div>
         <h3>Authors List</h3>
+
         <div className="text-xs-right">
           <Link className="btn btn-primary" to="/authors/new">
             Add an Author
           </Link>
         </div>
-        <ul className="list-group">
-          { this.renderAuthors() }
-        </ul>
+
+        <table className="table table-hover">
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>View Books</th>
+              <th className="text-xs-right">Delete Author</th>
+            </tr>
+          </thead>
+          <tbody>
+            { this.renderAuthors() }
+          </tbody>
+        </table>
+
         <div className="text-xs-left">
           <Link className="btn btn-primary" to="/publishers/3">
             Back to Dashboard
