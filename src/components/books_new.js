@@ -5,6 +5,13 @@ import { connect } from 'react-redux';
 import { createBook } from '../actions';
 
 class BooksNew extends Component {
+  constructor(props) {
+    super();
+
+    const { publisherId, authorId } = props.match.params;
+
+  }
+
   renderField(field) {
     const className= `form-group ${field.meta.touched && field.meta.error
                                                       ? 'has-danger' : ''}`;
@@ -27,7 +34,7 @@ class BooksNew extends Component {
     // pass an anonymous arrow function to createAuthor action creator
     // as a callback to be executed when post is completed
     this.props.createBook(values, () => {
-      this.props.history.push("/books");
+      this.props.history.push(`/publishers/${this.publisherId}/authors/${this.authorId}/books`);
     });
   }
 
@@ -48,7 +55,7 @@ class BooksNew extends Component {
           component={ this.renderField }
         />
         <button type="submit" className="btn btn-primary">Submit</button>
-        <Link className="btn btn-danger" to="/books">
+        <Link className="btn btn-danger" to={`/publishers/${this.publisherId}/authors/${this.authorId}/books`}>
           Cancel
         </Link>
       </form>

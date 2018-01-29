@@ -7,6 +7,7 @@ class BooksIndex extends Component {
   constructor(props) {
     super();
 
+    const { publisherId, authorId } = props.match.params;
     this.onDeleteClick = this.onDeleteClick.bind(this);
   }
 
@@ -18,15 +19,14 @@ class BooksIndex extends Component {
 
   onDeleteClick(e) {
     const { id } = e.target;
-    console.log(this.props.history);
+
     this.props.deleteBook(id, () => {
-      this.props.history.push("/books");
+      this.props.history.push(`/publishers/${this.publisherId}/authors/${this.authorId}/books`);
     });
   }
 
   renderBooks() {
     const books = this.props.books;
-    console.log(Object.keys(books));
 
     return Object.keys(books).map( (index) => {
         return (
@@ -59,11 +59,12 @@ class BooksIndex extends Component {
         </div>
       );
     }
+
     return (
       <div>
         <h3>Books List</h3>
         <div className="text-xs-right">
-          <Link className="btn btn-primary" to="/books/new">
+          <Link className="btn btn-primary" to={`/publishers/${this.publisherId}/authors/${this.authorId}/books/new`}>
             Add a Book
           </Link>
         </div>
@@ -80,7 +81,7 @@ class BooksIndex extends Component {
           </tbody>
         </table>
         <div className="text-xs-left">
-          <Link className="btn btn-primary" to="/authors">
+          <Link className="btn btn-primary" to={`/publishers/${this.publisherId}/authors`}>
             Back to Author Index
           </Link>
         </div>

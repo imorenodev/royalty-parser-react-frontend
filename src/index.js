@@ -17,16 +17,17 @@ import PublisherDashboard from './components/publisher_dashboard';
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
 ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
+  <Provider store={createStoreWithMiddleware(reducers,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() )}>
     <BrowserRouter>
       <div>
         {/**Switch allows us to match ONLY the first route matched. */}
         <Switch>
-          <Route path="/authors/new" component={ AuthorsNew } />
-          <Route path="/authors" component={ AuthorsIndex } />
-          <Route path="/publishers/:id" component={ PublisherDashboard } />
-          <Route path="/books/new" component={ BooksNew } />
-          <Route path="/books" component={ BooksIndex } />
+          <Route path="/publishers/:publisherId/authors/:authorId/books/new" component={ BooksNew } />
+          <Route path="/publishers/:publisherId/authors/:authorId/books" component={ BooksIndex } />
+          <Route path="/publishers/:publisherId/authors/new" component={ AuthorsNew } />
+          <Route path="/publishers/:publisherId/authors" component={ AuthorsIndex } />
+          <Route path="/publishers/:publisherId" component={ PublisherDashboard } />
           <Route path="/" component={ App } />
         </Switch>
       </div>
