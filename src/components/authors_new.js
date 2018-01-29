@@ -8,7 +8,6 @@ class AuthorsNew extends Component {
   constructor(props) {
     super();
 
-    const { publisherId, authorId } = props.match.params;
   }
 
   renderField(field) {
@@ -30,16 +29,18 @@ class AuthorsNew extends Component {
   }
 
   onSubmit(values) {
+    const { publisherId } = this.props.match.params;
     // pass an anonymous arrow function to createAuthor action creator
     // as a callback to be executed when post is completed
     this.props.createAuthor(values, () => {
-      this.props.history.push(`/publishers/${this.publisherId}/authors`);
+      this.props.history.push(`/publishers/${publisherId}/authors`);
     });
   }
 
   render() {
     // pull handleSubmit off of props injected into AuthorsNew by ReduxForm
     const { handleSubmit } = this.props;
+    const { publisherId } = this.props.match.params;
 
     return (
       <form onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
@@ -59,7 +60,7 @@ class AuthorsNew extends Component {
           component={ this.renderField }
         />
         <button type="submit" className="btn btn-primary">Submit</button>
-        <Link className="btn btn-danger" to={`/publishers/${this.publisherId}/authors`}>
+        <Link className="btn btn-danger" to={`/publishers/${publisherId}/authors`}>
           Cancel
         </Link>
       </form>

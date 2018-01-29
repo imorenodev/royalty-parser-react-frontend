@@ -5,13 +5,6 @@ import { connect } from 'react-redux';
 import { createBook } from '../actions';
 
 class BooksNew extends Component {
-  constructor(props) {
-    super();
-
-    const { publisherId, authorId } = props.match.params;
-
-  }
-
   renderField(field) {
     const className= `form-group ${field.meta.touched && field.meta.error
                                                       ? 'has-danger' : ''}`;
@@ -31,16 +24,18 @@ class BooksNew extends Component {
   }
 
   onSubmit(values) {
+    const { publisherId, authorId } = this.props.match.params;
     // pass an anonymous arrow function to createAuthor action creator
     // as a callback to be executed when post is completed
     this.props.createBook(values, () => {
-      this.props.history.push(`/publishers/${this.publisherId}/authors/${this.authorId}/books`);
+      this.props.history.push(`/publishers/${publisherId}/authors/${authorId}/books`);
     });
   }
 
   render() {
     // pull handleSubmit off of props injected into AuthorsNew by ReduxForm
     const { handleSubmit } = this.props;
+    const { publisherId, authorId } = this.props.match.params;
 
     return (
       <form onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
@@ -55,7 +50,7 @@ class BooksNew extends Component {
           component={ this.renderField }
         />
         <button type="submit" className="btn btn-primary">Submit</button>
-        <Link className="btn btn-danger" to={`/publishers/${this.publisherId}/authors/${this.authorId}/books`}>
+        <Link className="btn btn-danger" to={`/publishers/${publisherId}/authors/${authorId}/books`}>
           Cancel
         </Link>
       </form>

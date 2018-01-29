@@ -8,7 +8,7 @@ export default class App extends Component {
         <h2>The Royalty Parser</h2>
         <p>Get started now.</p>
         <div className="text-xs-left">
-          <Link className="btn btn-primary" to="/publishers/3">
+          <Link className="btn btn-primary" to="/publishers/1">
             Login Now!
           </Link>
         </div>
